@@ -1,0 +1,8 @@
+environment_loader
+langchain_openai
+langchain_community
+langchain_text_splitters
+streamlit
+chromadb
+pypdf
+GPT4All
