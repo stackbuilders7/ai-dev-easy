@@ -15,7 +15,6 @@ python3 --version
 ### Clone repo
 ```
 git clone https://github.com/stackbuilders7/ai-dev-easy.git
-cd Chapter_1_Setup
 ```
 
 ### Create an environment and install dependencies
@@ -27,7 +26,7 @@ pip install -r requirements.txt
 ```
 #### Windows Powershell
 ```
-python3 -m venv learning-env
+python3.11 -m venv learning-env
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
 learning-env\scripts\activate
 pip install -r requirements.txt
@@ -35,5 +34,6 @@ pip install -r requirements.txt
 
 ### Running Test code
 ```
+cd Chapter_1_Setup
 python3 ./Chapter_1_Setup/env_test.py
 ```
