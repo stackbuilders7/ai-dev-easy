@@ -28,12 +28,21 @@ pip install -r requirements.txt
 ```
 python3.11 -m venv learning-env
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
-learning-env\scripts\activate
+learning-env\Scripts\Activate.ps1
 pip install -r requirements.txt
 ```
+> **Note:**  
+> If you see an error about "running scripts is disabled on this system", it means your Powershell execution policy is too restrictive.  
+> To fix this, run the following command in your Powershell terminal **before activating**:
+> ```
+> Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
+> ```
+> Then activate your environment with:
+> ```
+> learning-env\Scripts\Activate.ps1
+> ```
 
 ### Running Test code
 ```
-cd Chapter_1_Setup
 python3 ./Chapter_1_Setup/env_test.py
 ```
