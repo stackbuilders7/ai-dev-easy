@@ -5,4 +5,4 @@ langchain_text_splitters
 streamlit
 chromadb
 pypdf
-GPT4All
+sentence_transformers

@@ -5,11 +5,11 @@ In this chapter we will learn Retrieval-Augmented Generation (RAG) is very usefu
 
 ## Setup
 We assume Setup of earlier chapters already completed.
-For generating Vector embedding we need a embedding model, since we are on free tier of OpenAI we can not use OpenAI embedding model, so in this chapter we will use `GPT4All`.
-GPT4All will allow us to download locally hosted embedding model.
+For generating Vector embedding we need a embedding model, since we are on free tier of OpenAI we can not use OpenAI embedding model, so in this chapter we will use `SentenceTransformer`.
+SentenceTransformer us to create embeddings locally.
 
-### Adding Streamlit dependency
-- Add `GPT4All` librancy under `requirements.txt` file.
+### Adding dependency
+- Allready Added `sentence_transformers` librancy under `requirements.txt` file.
 - run `pip install -r requirements.txt`
 
 ### Running Streamlit UI

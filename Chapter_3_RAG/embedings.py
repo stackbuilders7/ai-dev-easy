@@ -4,7 +4,19 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import Chroma
 import glob
 from pypdf import PdfReader
-from langchain_community.embeddings import GPT4AllEmbeddings
+
+from sentence_transformers import SentenceTransformer
+
+# Wrapper for SentenceTransformer to provide embed_documents and embed_query methods
+class SentenceTransformerEmbeddings:
+    def __init__(self, model_name="all-MiniLM-L6-v2"):
+        self.model = SentenceTransformer(model_name)
+
+    def embed_documents(self, texts):
+        return self.model.encode(texts, show_progress_bar=False, convert_to_numpy=True).tolist()
+
+    def embed_query(self, text):
+        return self.model.encode([text], show_progress_bar=False, convert_to_numpy=True)[0].tolist()
 
 CHROMA_DB_PATH = './'
 
@@ -14,8 +26,8 @@ class ChromaEmbeddings:
         self.collection_name = 'Test_DB'
         self.directory = CHROMA_DB_PATH
         # self.embeddings = OpenAIEmbeddings(model = "text-embedding-3-small")
-        self.gpt4all_embd = GPT4AllEmbeddings()
-        self.chroma_db = Chroma(persist_directory=self.directory, embedding_function=self.gpt4all_embd, collection_name=self.collection_name)
+        self.embeddings = SentenceTransformerEmbeddings("all-MiniLM-L6-v2")
+        self.chroma_db = Chroma(persist_directory=self.directory, embedding_function=self.embeddings, collection_name=self.collection_name)
 
     def generate_embeddings(self, chunk_size:int, chunk_overlap:int):
         is_collection_empty: bool = self.chroma_db._collection.count() == 0 
@@ -31,7 +43,7 @@ class ChromaEmbeddings:
         print(f'Saving {len(texts)} embeddings to Chroma DB...')
         try:
             self.chroma_db = Chroma.from_texts(
-                texts, self.gpt4all_embd, collection_name=self.collection_name, persist_directory=self.directory
+                texts, self.embeddings, collection_name=self.collection_name, persist_directory=self.directory
             )
             print('Embeddings saved successfully.')
         except Exception as e:
